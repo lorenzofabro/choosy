@@ -51,7 +51,7 @@
 		on:touchstart={handleTouchStart}
 		on:touchmove={handleTouchMove}
 		on:touchend={handleTouchEnd}
-		style="width: 600px; height: 600px; border: 1px solid black"
+		class="w-full h-full"
 	>
 		{#each Array.from(touches.values()) as touch}
 			<div
