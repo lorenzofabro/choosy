@@ -2,7 +2,7 @@
 	import cool from '../lib/images/cool.png';
 	import { RadioGroup, RadioItem, AppBar, Avatar } from '@skeletonlabs/skeleton';
 
-	let value: number = 1;
+	let value: number = 2;
 	let element: HTMLElement;
 	let capturedPointerId: number | null = null;
 	let pointers = new Set<{ id: number; x: number; y: number; color: string }>();
@@ -78,7 +78,6 @@
 						: pointer
 				)
 			);
-			e.preventDefault();
 		}
 
 		e.preventDefault();
