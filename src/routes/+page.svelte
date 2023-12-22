@@ -114,6 +114,11 @@
 		on:pointermove={onPointerMove}
 		class="w-full h-full absolute inset-0 mt-24"
 	>
+		{Array.from(pointers)
+			.map(
+				(pointer) => `ID: ${pointer.id}, X: ${pointer.x}, Y: ${pointer.y}, Color: ${pointer.color}`
+			)
+			.join(', ')}
 		{#each Array.from(pointers) as pointer (pointer.id)}
 			<div
 				style="position: absolute; left: {pointer.x}px; top: {pointer.y}px; width: 150px; height: 150px; background-color: {pointer ===
