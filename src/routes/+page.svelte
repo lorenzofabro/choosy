@@ -2,7 +2,7 @@
 	import cool from '../lib/images/cool.png';
 	import { RadioGroup, RadioItem, AppBar, Avatar } from '@skeletonlabs/skeleton';
 
-	let value: number = 2;
+	let value: number = 1;
 	let element: HTMLElement;
 	let capturedPointerId: number | null = null;
 	let pointers = new Set<{ id: number; x: number; y: number; color: string }>();
@@ -21,7 +21,7 @@
 			timer = setTimeout(() => {
 				const pointersArray = Array.from(pointers);
 				selectedPointer = pointersArray[Math.floor(Math.random() * pointersArray.length)];
-			}, 5000);
+			}, 2000);
 		}
 	}
 
@@ -48,7 +48,7 @@
 		const color = colors[e.pointerId % colors.length];
 		pointers = new Set([
 			...pointers,
-			{ id: e.pointerId, x: e.clientX - rect.left - 25, y: e.clientY - rect.top - 25, color }
+			{ id: e.pointerId, x: e.clientX - rect.left - 75, y: e.clientY - rect.top - 75, color }
 		]);
 		console.log('onPointerDown', e);
 		console.log(pointers);
@@ -71,13 +71,14 @@
 					pointer.id === e.pointerId
 						? {
 								id: e.pointerId,
-								x: e.clientX - rect.left - 50,
-								y: e.clientY - rect.top - 50,
+								x: e.clientX - rect.left - 75,
+								y: e.clientY - rect.top - 75,
 								color
 						  }
 						: pointer
 				)
 			);
+			e.preventDefault();
 		}
 
 		e.preventDefault();
@@ -116,7 +117,7 @@
 	>
 		{#each Array.from(pointers) as pointer (pointer.id)}
 			<div
-				style="position: absolute; left: {pointer.x}px; top: {pointer.y}px; width: 100px; height: 100px; background-color: {pointer ===
+				style="position: absolute; left: {pointer.x}px; top: {pointer.y}px; width: 150px; height: 150px; background-color: {pointer ===
 				selectedPointer
 					? 'black'
 					: pointer.color}; border-radius: 50%; z-index: 9999;"
