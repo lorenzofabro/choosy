@@ -50,8 +50,7 @@
 			...pointers,
 			{ id: e.pointerId, x: e.clientX - rect.left - 75, y: e.clientY - rect.top - 75, color }
 		]);
-		console.log('onPointerDown', e);
-		console.log(pointers);
+		e.preventDefault();
 	}
 
 	function onPointerUp(e: PointerEvent) {
