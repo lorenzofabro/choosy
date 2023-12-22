@@ -25,6 +25,22 @@
 		}
 	}
 
+	import { onMount, onDestroy } from 'svelte';
+
+	let isBrowser = typeof window !== 'undefined';
+
+	if (isBrowser) {
+		onMount(() => {
+			window.addEventListener('pointerup', onPointerUp);
+			window.addEventListener('pointerout', onPointerUp);
+		});
+
+		onDestroy(() => {
+			window.removeEventListener('pointerup', onPointerUp);
+			window.removeEventListener('pointerout', onPointerUp);
+		});
+	}
+
 	function onPointerDown(e: PointerEvent) {
 		element.setPointerCapture(e.pointerId);
 		capturedPointerId = e.pointerId;
@@ -55,8 +71,8 @@
 					pointer.id === e.pointerId
 						? {
 								id: e.pointerId,
-								x: e.clientX - rect.left - 25,
-								y: e.clientY - rect.top - 25,
+								x: e.clientX - rect.left - 50,
+								y: e.clientY - rect.top - 50,
 								color
 						  }
 						: pointer
@@ -95,14 +111,12 @@
 	<div
 		bind:this={element}
 		on:pointerdown={onPointerDown}
-		on:pointerup={onPointerUp}
-		on:pointerout={onPointerUp}
 		on:pointermove={onPointerMove}
 		class="w-full h-full absolute inset-0 mt-24"
 	>
 		{#each Array.from(pointers) as pointer (pointer.id)}
 			<div
-				style="position: absolute; left: {pointer.x}px; top: {pointer.y}px; width: 50px; height: 50px; background-color: {pointer ===
+				style="position: absolute; left: {pointer.x}px; top: {pointer.y}px; width: 100px; height: 100px; background-color: {pointer ===
 				selectedPointer
 					? 'black'
 					: pointer.color}; border-radius: 50%; z-index: 9999;"
