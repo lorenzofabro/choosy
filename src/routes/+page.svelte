@@ -9,6 +9,21 @@
 	let x = 0;
 	let y = 0;
 	const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'pink'];
+	let selectedPointer: any = null;
+	let timer: number | null = null;
+
+	$: {
+		if (pointers.size === value) {
+			if (timer) {
+				clearTimeout(timer);
+			}
+
+			timer = setTimeout(() => {
+				const pointersArray = Array.from(pointers);
+				selectedPointer = pointersArray[Math.floor(Math.random() * pointersArray.length)];
+			}, 5000);
+		}
+	}
 
 	function onPointerDown(e: PointerEvent) {
 		element.setPointerCapture(e.pointerId);
@@ -81,12 +96,16 @@
 		bind:this={element}
 		on:pointerdown={onPointerDown}
 		on:pointerup={onPointerUp}
+		on:pointerout={onPointerUp}
 		on:pointermove={onPointerMove}
 		class="w-full h-full absolute inset-0 mt-24"
 	>
 		{#each Array.from(pointers) as pointer (pointer.id)}
 			<div
-				style="position: absolute; left: {pointer.x}px; top: {pointer.y}px; width: 50px; height: 50px; background-color: {pointer.color}; border-radius: 50%; z-index: 9999;"
+				style="position: absolute; left: {pointer.x}px; top: {pointer.y}px; width: 50px; height: 50px; background-color: {pointer ===
+				selectedPointer
+					? 'black'
+					: pointer.color}; border-radius: 50%; z-index: 9999;"
 			/>
 		{/each}
 	</div>
